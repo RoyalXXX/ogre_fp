@@ -97,7 +97,7 @@ void BasicTutorial::setup()
     camNode->attachObject(cam);
     mFPController = new FirstPersonController(cam, camNode, FPBodyNode);
     addInputListener(mFPController);
-	FPBodyNode->setPosition(0, 0, 10); // initial position of the Player
+	FPBodyNode->setPosition(0, 0, 0); // initial position of the Player
 	// End First Person Controller setup
 
 
@@ -141,16 +141,6 @@ void BasicTutorial::setup()
     SceneNode* directionalLightNode = scnMgr->getRootSceneNode()->createChildSceneNode();
     directionalLightNode->attachObject(directionalLight);
     directionalLightNode->setDirection(Vector3(1, -0.5, -1));
-    
-    
-    Entity* treeEntity = scnMgr->createEntity("SnowyPineTree", "SnowyPineTree.mesh");
-	treeEntity->setCastShadows(true);
-	SceneNode* treeNode = scnMgr->getRootSceneNode()->createChildSceneNode("SnowyPineTreeNode");
-	treeNode->attachObject(treeEntity);
-    treeNode->setPosition(0, 0, 0);
-	treeNode->setScale(0.05f, 0.05f, 0.05f);
-    
-
     
 }
 
@@ -196,3 +186,4 @@ int main(int argc, char** argv)
     return 0;
 
 }
+
