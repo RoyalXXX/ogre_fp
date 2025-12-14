@@ -26,11 +26,6 @@
 	SOFTWARE.
 */
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#endif
-
 #include "Ogre.h"
 #include "OgreApplicationContext.h"
 #include "OgreInput.h"
@@ -110,7 +105,6 @@ void BasicTutorial::setup()
     scnMgr->setShadowTechnique(ShadowTechnique::SHADOWTYPE_TEXTURE_ADDITIVE);
 
 
-
     Plane plane(Vector3::UNIT_Y, 0);
 
     MeshManager::getSingleton().createPlane(
@@ -129,14 +123,12 @@ void BasicTutorial::setup()
 	groundEntity->setMaterialName("Examples/GrassFloor");
    
 
-    
     Light* directionalLight = scnMgr->createLight("DirectionalLight");
     directionalLight->setType(Light::LT_DIRECTIONAL);
     directionalLight->setDiffuseColour(ColourValue(1, 1, 1));
     directionalLight->setSpecularColour(ColourValue(1, 1, 1));
 	directionalLight->setPowerScale(1.0f);
     
-
     
     SceneNode* directionalLightNode = scnMgr->getRootSceneNode()->createChildSceneNode();
     directionalLightNode->attachObject(directionalLight);
@@ -159,17 +151,11 @@ bool BasicTutorial::keyPressed(const KeyboardEvent& evt)
     return true;
 }
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT)
-#else
+
 int main(int argc, char** argv)
-#endif
 {
     try
     {
-        Ogre::LogManager* logManager = new Ogre::LogManager();
-		logManager->createLog("Ogre.log", true, false, false);
-        
         BasicTutorial app;
         app.initApp();
         Ogre::Root* root = app.getRoot();
@@ -186,4 +172,5 @@ int main(int argc, char** argv)
     return 0;
 
 }
+
 
