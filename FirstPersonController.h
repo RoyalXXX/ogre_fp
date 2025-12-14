@@ -39,7 +39,7 @@ class FirstPersonController : public InputListener
 private:
 	Camera* mCamera;
 	SceneNode* mCameraNode; // The node that the camera is attached to
-	SceneNode* mCameraParentNode; // The node that moves (the player's body)
+	SceneNode* mCharacterNode; // The node that moves (the player's body)
 
     float mMoveSpeed;
 	float mRunSpeed;
@@ -51,7 +51,7 @@ private:
     float mYaw;
     float mPitch;
 public:
-	FirstPersonController(Camera* camera, SceneNode* cameraNode, SceneNode* cameraParentNode);
+	FirstPersonController(Camera* camera, SceneNode* characterNode);
 	virtual ~FirstPersonController();
 
 	void setupCamera();
@@ -71,5 +71,4 @@ public:
 		mMinPitch = Math::DegreesToRadians(minDegree); 
 		mMaxPitch = Math::DegreesToRadians(maxDegree); 
 	}
-
 };
