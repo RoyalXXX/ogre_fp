@@ -28,10 +28,10 @@
 
 #include "FirstPersonController.h"
 
-FirstPersonController::FirstPersonController(Camera* camera, SceneNode* cameraNode, SceneNode* cameraNodeParent)
+FirstPersonController::FirstPersonController(Camera* camera, SceneNode* characterNode)
 	: mCamera(camera)
-	, mCameraNode(cameraNode)
-	, mCameraParentNode(cameraNodeParent)
+	, mCameraNode(nullptr)
+	, mCharacterNode(characterNode)
 	, mMoveSpeed(5.0f)
 	, mRunSpeed(10.0f)
 	, mCurrentSpeed(5.0f)
@@ -52,7 +52,9 @@ void FirstPersonController::setupCamera()
 	mCamera->setNearClipDistance(0.1f);
 	mCamera->setFarClipDistance(1000.0f);
 	mCamera->setAutoAspectRatio(true);
-
+	mCameraNode = mCharacterNode->createChildSceneNode("CameraNode");
+	mCameraNode->setPosition(0, 2, 0); // Eye level
+	mCameraNode->attachObject(mCamera);
 	mMovementDirection = Vector3::ZERO;
 }
 
@@ -63,9 +65,9 @@ void FirstPersonController::update(const FrameEvent& evt)
 		Vector3 direction = mMovementDirection;
 		direction.normalise();
 
-		Vector3 moveDir = mCameraParentNode->getOrientation() * direction;
+		Vector3 moveDir = mCharacterNode->getOrientation() * direction;
 
-		mCameraParentNode->translate(
+		mCharacterNode->translate(
 			moveDir * mCurrentSpeed * evt.timeSinceLastFrame,
 			Node::TransformSpace::TS_WORLD
 		);
@@ -113,8 +115,8 @@ bool FirstPersonController::mouseMoved(const MouseMotionEvent& evt)
 
 	mPitch = std::max(mMinPitch, std::min(mMaxPitch, mPitch));
 	
-	mCameraParentNode->resetOrientation();
-	mCameraParentNode->yaw(Radian(mYaw), Node::TransformSpace::TS_WORLD);
+	mCharacterNode->resetOrientation();
+	mCharacterNode->yaw(Radian(mYaw), Node::TransformSpace::TS_WORLD);
 
 	mCameraNode->resetOrientation();
 	mCameraNode->pitch(Radian(mPitch), Node::TransformSpace::TS_LOCAL);
@@ -132,5 +134,4 @@ bool FirstPersonController::mouseReleased(const MouseButtonEvent& evt)
 {
 	// Implement if needed
 	return true;
-
 }
