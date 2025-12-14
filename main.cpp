@@ -85,24 +85,21 @@ void BasicTutorial::setup()
 
 	// First Person Controller setup
 	setWindowGrab(); // Grab mouse cursor
-	SceneNode* FPBodyNode = scnMgr->getRootSceneNode()->createChildSceneNode("FPBodyNode");
-	SceneNode* camNode = FPBodyNode->createChildSceneNode("CameraNode");
-	camNode->setPosition(0, 2, 0); // Eye level
-    Camera* cam = scnMgr->createCamera("Camera");
-    camNode->attachObject(cam);
-    mFPController = new FirstPersonController(cam, camNode, FPBodyNode);
-    addInputListener(mFPController);
-	FPBodyNode->setPosition(0, 0, 0); // initial position of the Player
+	SceneNode* CharacterNode = scnMgr->getRootSceneNode()->createChildSceneNode("CharacterNode");
+	Camera* camera = scnMgr->createCamera("Camera");
+	Viewport* vp = getRenderWindow()->addViewport(camera);
+	mFPController = new FirstPersonController(camera, CharacterNode);
+	addInputListener(mFPController);
+	CharacterNode->setPosition(0, 0, 10); // initial position of the Player
 	// End First Person Controller setup
 
 
-    Viewport* vp = getRenderWindow()->addViewport(cam);
-    vp->setBackgroundColour(ColourValue(0.7, 0.8, 0.9));
-    cam->setAspectRatio(Real(vp->getActualWidth()) / Real(vp->getActualHeight()));
-
-
     scnMgr->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
-    scnMgr->setShadowTechnique(ShadowTechnique::SHADOWTYPE_TEXTURE_ADDITIVE);
+	scnMgr->setShadowTechnique(ShadowTechnique::SHADOWTYPE_TEXTURE_ADDITIVE);
+	//scnMgr->setSkyBox(true, "Examples/CloudyNoonSkyBox", 300);
+	scnMgr->setSkyDome(true, "Examples/CloudySky", 5, 8, 300);
+	Ogre::ColourValue fadeColour(0.9, 0.9, 0.9);
+	scnMgr->setFog(Ogre::FOG_EXP, fadeColour, 0.002);
 
 
     Plane plane(Vector3::UNIT_Y, 0);
@@ -172,5 +169,6 @@ int main(int argc, char** argv)
     return 0;
 
 }
+
 
 
