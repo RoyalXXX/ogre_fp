@@ -88,6 +88,7 @@ void BasicTutorial::setup()
 	SceneNode* CharacterNode = scnMgr->getRootSceneNode()->createChildSceneNode("CharacterNode");
 	Camera* camera = scnMgr->createCamera("Camera");
 	Viewport* vp = getRenderWindow()->addViewport(camera);
+	camera->setAspectRatio(Real(vp->getActualWidth()) / Real(vp->getActualHeight()));
 	mFPController = new FirstPersonController(camera, CharacterNode);
 	addInputListener(mFPController);
 	CharacterNode->setPosition(0, 0, 10); // initial position of the Player
@@ -169,6 +170,7 @@ int main(int argc, char** argv)
     return 0;
 
 }
+
 
 
 
