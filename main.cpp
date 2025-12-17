@@ -26,7 +26,7 @@
 	SOFTWARE.
 */
 
-define HIDE_CONSOLE 1
+#define HIDE_CONSOLE 1
 
 #if HIDE_CONSOLE
 #define WIN32_LEAN_AND_MEAN
@@ -186,6 +186,7 @@ int main(int argc, char** argv)
     return 0;
 
 }
+
 
 
 
