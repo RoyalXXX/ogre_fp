@@ -26,6 +26,14 @@
 	SOFTWARE.
 */
 
+define HIDE_CONSOLE 1
+
+#if HIDE_CONSOLE
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#pragma comment(linker, "/SUBSYSTEM:WINDOWS")
+#endif
+
 #include "Ogre.h"
 #include "OgreApplicationContext.h"
 #include "OgreInput.h"
@@ -150,10 +158,18 @@ bool BasicTutorial::keyPressed(const KeyboardEvent& evt)
 }
 
 
+#if HIDE_CONSOLE
+INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT nCmd)
+#else
 int main(int argc, char** argv)
+#endif
 {
     try
     {
+#if HIDE_CONSOLE
+        Ogre::LogManager* logManager = new Ogre::LogManager();
+		logManager->createLog("Ogre.log", true, false, false);
+#endif   
         BasicTutorial app;
         app.initApp();
         Ogre::Root* root = app.getRoot();
@@ -170,6 +186,7 @@ int main(int argc, char** argv)
     return 0;
 
 }
+
 
 
 
