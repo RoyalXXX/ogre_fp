@@ -11,6 +11,7 @@ project ("OgreTest")
 # Specify the path to OGREConfig.cmake
 set(OGRE_DIR "ogre-sdk-v14.4.1-msvc142-x64/Cmake" CACHE PATH "Path to OGRE")
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/ogre-sdk-v14.4.1-msvc142-x64/bin")
 
 # The COMPONENTS part checks that OGRE was built the way we need it
 # The CONFIG flag makes sure we get OGRE instead of OGRE-next
@@ -26,6 +27,7 @@ endif()
 
 # this also sets the includes and pulls third party dependencies
 target_link_libraries(OgreTest OgreBites)
+
 
 
 # TODO: Add tests and install targets if needed.
